@@ -1,4 +1,12 @@
 from flask import Flask
+from flask.ext.sqlalchemy import SQLAlchemy
+# from flask.ext.login import LoginManager
 
 app = Flask(__name__)
-from app import views
+app.config.from_object('config')
+db = SQLAlchemy(app)
+
+from app import views, api, models
+
+# login_manager = LoginManager()
+# login_manager.init_app(app)

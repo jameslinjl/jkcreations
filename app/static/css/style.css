@@ -1,0 +1,27 @@
+body  {
+    background: url('../images/background.jpg');
+    background-color: #cccccc;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: -1;
+}
+
+/*make sure the logo sizes well on mobile*/
+#logo {
+    width: 40%;
+}
+
+@media all and (max-width: 850px){
+  #logo {
+    width: 350px;
+  }
+}
+
+.social {
+    width: 100px;
+    height: 100px;
+}

@@ -2,9 +2,50 @@
     <head>
         <script src="../static/react.min.js"></script>
         <script src="../static/JSXTransformer.js"></script>
+        <script src="../static/jquery-1.11.3.min.js"></script>
         <title>Auth</title>
+
+        <!--<script>
+            $(document).ready(function(){
+
+                $("button#1").click(function(){
+                    $('div#form').append('<p>Picture URL</p><textarea id="url" rows="1" cols="50" />');
+                });
+
+                $("button#2").click(function(){
+                    var title = $('textarea#title').val();
+                    var body = $('textarea#body').val();
+                    var picSource = $('textarea#url').val();
+
+                    var postJson = {
+                        'title': title,
+                        'body': body,
+                        'picSource': picSource
+                    };
+                    console.log(postJson);
+
+                });
+            });
+        </script>-->
     </head>
     <body>
-        <div>stuff</div>
+        <!--<div id="form">
+            <p>Post Title</p>
+            <textarea id="title" rows="1" cols="50"></textarea>
+            <p>Post Content</p>
+            <textarea id="body" rows="5" cols="50"></textarea>
+            <p>Picture URL</p>
+            <textarea id="url" rows="1" cols="50"></textarea>
+        </div>
+
+
+        <div>
+            <button id="1">Add another URL</button>
+        </div>
+        <div>
+            <button id="2">Create New Post</button>
+        </div>-->
+        <div id="postForm"></div>
+        <script type="text/jsx" src="../static/scripts/postForm.js"></script>
     </body>
 </html>
