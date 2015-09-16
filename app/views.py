@@ -14,6 +14,14 @@ def index():
 
 
 @app.route('/auth')
-@app.route('/login')
 def auth():
     return render_template('auth.html')
+
+
+@app.route('/auth/add')
+def auth_add():
+    return render_template('auth_add.html')
+
+@app.route('/auth/edit')
+def auth_edit():
+    return render_template('auth_edit.html')

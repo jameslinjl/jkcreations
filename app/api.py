@@ -1,4 +1,4 @@
-from flask import jsonify, json, render_template, request
+from flask import jsonify, json, request
 from app import app, db, models
 
 
@@ -15,15 +15,30 @@ def api_post_get():
 
 @app.route('/api/post/post', methods=['POST'])
 def api_post_post():
-    # not legit yet
-    tmp = models.Post(title='test title', body='test body', thumbnail_index=0)
-    tmp_picture = models.Picture(source='https://pbs.twimg.com/profile_images/458794430200152064/XdQULww6.png', post=tmp)
-    # print request.data
-    db.session.add(tmp_picture)
-    db.session.add(tmp)
+    data = request.form
+
+    tmp_post = models.Post(title=data['title'],
+        body=data['body'], thumbnail_index=data['thumbnailIndex'])
+    db.session.add(tmp_post)
+
+    pictures = data.getlist('pictures[]')
+    for picture in pictures:
+        tmp_pic = models.Picture(source=picture, post=tmp_post)
+        db.session.add(tmp_pic)
+
     db.session.commit()
-    # return render_template('auth.html')
     return 'HTTP 1.1 200 OK\r\n'
 
 
-# needs specific route for pictures, upload module
+@app.route('/api/post/delete', methods=['DELETE'])
+def api_post_delete():
+    id = request.args.get('id')
+    post_to_delete = models.Post.query.get(id)
+
+    db.session.delete(post_to_delete)
+    db.session.commit()
+    return 'HTTP 1.1 200 OK\r\n'
+
+
+
+# needs specific route for pictures, upload module?

@@ -14,8 +14,7 @@ var WordsClass = React.createClass({
 var AlbumClass = React.createClass({
 
     render: function() {
-        // var thumbnailIndex = this.props.thumbnailIndex;
-        var thumbnailIndex = 0; // temporary until db updates
+        var thumbnailIndex = this.props.thumbnailIndex;
         var thumbnailPictureSource = this.props.pictures[thumbnailIndex].source;
         var picArray = this.props.pictures;
         var postId = this.props.postId;
@@ -72,7 +71,7 @@ var PostsClass = React.createClass({
                 return (
                     <div>
                         <WordsClass title={post.title} body={post.body} />
-                        <AlbumClass pictures={post.pictures} postId={post.id} thumbNailIndex={post.thumbnailIndex} />
+                        <AlbumClass pictures={post.pictures} postId={post.id} thumbnailIndex={post.thumbnailIndex} />
                     </div>
                 );
             });

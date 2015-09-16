@@ -25,8 +25,13 @@ var UrlList = React.createClass({
             return (
                 <div>
                     {urlValue}
-                    <input type="button" value="Delete" onClick={that.handleUrlDelete.bind(null, urlValue)}/>
+                    <input type="button" value="Delete" onClick={that.handleUrlDelete.bind(null, urlValue)} />
                 </div>
+            );
+        });
+        var urlOptions = this.state.data.map(function(urlValue) {
+            return (
+                <option value={urlValue}>{urlValue}</option>
             );
         });
         return (
@@ -40,41 +45,46 @@ var UrlList = React.createClass({
                 <div>
                     <input type="button" value="Commit Urls" onClick={this.handleUrlCommit}/>
                 </div>
+                <div>
+                    Thumbnail: <select id="thumbnail">{urlOptions}</select>
+                </div>
             </div>
         );
     }
 });
 
 var PostForm = React.createClass({
-    handleClick: function(e) {
+    handleSubmit: function(e) {
 
         // gets the DOM and walks through it, builds our data we want to submit
         var node = React.findDOMNode(this.refs.urlList);
         var urlData = [];
-        for(i=0; i < node.getElementsByTagName('span').length; i++) {
-            urlData.push(node.getElementsByTagName("span")[i].childNodes[0].nodeValue);
+
+        // push to array minus 1 because of Thumbnail line
+        for(i=0; i < node.getElementsByTagName('span').length - 1; i++) {
+            urlData.push(node.getElementsByTagName('span')[i].childNodes[0].nodeValue);
         }
-        
+
+        // gets the thumbnail DOM element and gets our index
+        var selectDOM = document.getElementById('thumbnail');
 
         // e.preventDefault();
         var title = React.findDOMNode(this.refs.title).value.trim();
         var content = React.findDOMNode(this.refs.content).value.trim();
-        var postData = {title: title, body: content, picSource: urlData};
-
-        console.log(postData);
-        // location.reload();
-        /*
-        if(!title || !content || !url) {
-            alert('There is a field that isn\'t filled out yet!');
-            return;
-        }
+        var postData = {title: title, body: content, pictures: urlData, thumbnailIndex: selectDOM.selectedIndex};
+        
+        // if(!title || !content || !url) {
+        //     alert('There is a field that isn\'t filled out yet!');
+        //     return;
+        // }
 
         $.ajax({
             url: this.props.url,
             dataType: 'json',
             type: 'POST',
             data: postData
-        });*/
+        });
+        location.reload();
         return;
     },
     render: function() {
@@ -89,7 +99,7 @@ var PostForm = React.createClass({
                 </div>
                 <UrlList ref="urlList"/>
                 <div>
-                    <input type="button" value="Post" onClick={this.handleClick} />
+                    <input type="submit" value="Post" />
                 </div>
             </form>
             </div>
